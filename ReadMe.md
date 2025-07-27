@@ -133,7 +133,7 @@ Your application should now be fully functional in your browser.
 *Description: An empty form ready for adding a new product.*
 
 ### 3. Product Details Modal
-![Product Details Modal](product_details.png)
+![Product Details Modal](product_details.png.png)
 *Description: A modal window displaying detailed information for a selected product.*
 
 ### 4. Product List with Filter Applied
