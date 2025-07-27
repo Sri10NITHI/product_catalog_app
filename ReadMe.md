@@ -47,15 +47,15 @@ This is a simplified web application for managing a product catalog, built with 
     * Fetch API (for communicating with the backend)
 
 ## Project Structure
-product_catalog_app/backend/app.py        # Flask application and API endpoints
-   ||backend/models.py     # SQLAlchemy database model definition
-   ||backend/database.db   # SQLite database file (auto-generated on first run)
-||product_catalog_app/frontend/index.html    # Main user interface
- || frontend/style.css     # Styling for the frontend  
-  ||frontend/script.js     # Frontend logic and API interactions
-  ||product_catalog_app/screenshots     # Folder containing application screenshots
-  ||product_catalog_app/.gitignore      # Specifies files/folders to be ignored by Git
-  ||product_catalog_app/ README.md      # This file
+product_catalog_app/backend/app.py   ( # Flask application and API endpoints)
+   ||backend/models.py     (# SQLAlchemy database model definition)
+   ||backend/database.db  ( # SQLite database file (auto-generated on first run))
+||product_catalog_app/frontend/index.html    (# Main user interface)
+ || frontend/style.css    ( # Styling for the frontend ) 
+  ||frontend/script.js     (# Frontend logic and API interactions)
+  ||product_catalog_app/screenshots     (# Folder containing application screenshots)
+  ||product_catalog_app/.gitignore      (# Specifies files/folders to be ignored by Git)
+  ||product_catalog_app/ README.md      (# This file)
 
 ## Setup and Installation
 
