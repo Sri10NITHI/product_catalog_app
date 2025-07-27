@@ -128,19 +128,19 @@ Your application should now be fully functional in your browser.
 ## Key Functionalities (Screenshots)
 
 ### 1. Product List View with Filtering & Sorting
-![Product List View](screenshots/product_list.png)
+![Product List View](product_list.png)
 *Description: Shows the main product listing, demonstrating the client-side filter input and sort dropdown.*
 
 ### 2. Add New Product Form
-![Add New Product Form](screenshots/add_edit_form.png)
+![Add New Product Form](add_edit_form.png)
 *Description: An empty form ready for adding a new product.*
 
 ### 3. Product Details Modal
-![Product Details Modal](screenshots/product_details.png)
+![Product Details Modal](product_details.png)
 *Description: A modal window displaying detailed information for a selected product.*
 
 ### 4. Product List with Filter Applied
-![Filtered List](screenshots/filtered_sorted_list.png)
+![Filtered List](filtered_sorted_list.png)
 *Description: The product list after applying a filter (e.g., searching for "Mouse") and sorting by price.*
 
 ## License
