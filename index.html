@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Product Catalog Management</h1>
+
+        <div class="form-section">
+            <h2>Add/Edit Product</h2>
+            <form id="productForm">
+                <input type="hidden" id="productId">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+
+                <label for="description">Description:</label>
+                <textarea id="description"></textarea>
+
+                <label for="price">Price:</label>
+                <input type="number" id="price" step="0.01" required>
+
+                <label for="stock">Stock:</label>
+                <input type="number" id="stock" required>
+
+                <button type="submit" id="submitButton">Add Product</button>
+                <button type="button" id="cancelEditButton" style="display: none;">Cancel Edit</button>
+            </form>
+        </div>
+
+        <div class="controls-section">
+            <h2>Filters & Sorting</h2>
+            <input type="text" id="filterInput" placeholder="Filter by name or description...">
+            <select id="sortSelect">
+                <option value="none">Sort By...</option>
+                <option value="name_asc">Name (A-Z)</option>
+                <option value="name_desc">Name (Z-A)</option>
+                <option value="price_asc">Price (Low to High)</option>
+                <option value="price_desc">Price (High to Low)</option>
+                <option value="stock_asc">Stock (Low to High)</option>
+                <option value="stock_desc">Stock (High to Low)</option>
+            </select>
+            <button id="resetFiltersButton">Reset Filters</button>
+        </div>
+
+        <div class="product-list-section">
+            <h2>Product List</h2>
+            <div id="productList">
+                </div>
+        </div>
+
+        <div id="productDetailModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2>Product Details</h2>
+                <p><strong>ID:</strong> <span id="detailId"></span></p>
+                <p><strong>Name:</strong> <span id="detailName"></span></p>
+                <p><strong>Description:</strong> <span id="detailDescription"></span></p>
+                <p><strong>Price:</strong> $<span id="detailPrice"></span></p>
+                <p><strong>Stock:</strong> <span id="detailStock"></span></p>
+            </div>
+        </div>
+         <footer class="page-footer">
+                <div class="font-13">2025 © <b>SRINITHI.S</b> - All rights reserved.</div>
+                <div class="to-top"><i class="fa fa-angle-double-up"></i></div>
+            </footer>
+    </div>
+   
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints
+
+# Database
+# database.db  # Uncomment this line if you DO NOT want to include database.db in your repo.
+               # For this submission, you might want to leave it commented out to include it.
+
+# Flask specific
+.flaskenv
+
+# OS generated files
+.DS_Store
+Thumbs.db
