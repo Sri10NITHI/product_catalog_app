@@ -48,10 +48,10 @@ This is a simplified web application for managing a product catalog, built with 
 
 ## Project Structure
 product_catalog_app/
-├── backend/
-│   ├── app.py        # Flask application and API endpoints
-│   ├── models.py     # SQLAlchemy database model definition
-│   └── database.db   # SQLite database file (auto-generated on first run)
+      backend/
+│    /app.py        # Flask application and API endpoints
+│    /models.py     # SQLAlchemy database model definition
+│    /database.db   # SQLite database file (auto-generated on first run)
 ├── frontend/
 │   ├── index.html    # Main user interface
 │   ├── style.css     # Styling for the frontend
