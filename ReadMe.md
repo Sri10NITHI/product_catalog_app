@@ -125,7 +125,7 @@ Your application should now be fully functional in your browser.
 ## Key Functionalities (Screenshots)
 
 ### 1. Product List View with Filtering & Sorting
-![Product List View](product_list.png)
+![Product List View](product_list.png.png)
 *Description: Shows the main product listing, demonstrating the client-side filter input and sort dropdown.*
 
 ### 2. Add New Product Form
