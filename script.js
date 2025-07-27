@@ -15,17 +15,26 @@ const closeButton = document.querySelector('.close-button');
 const detailId = document.getElementById('detailId');
 const detailName = document.getElementById('detailName');
 const detailDescription = document.getElementById('detailDescription');
-const detailPrice = document.getElementById('detailPrice');
+const detailPrice = document.getElementById('detailPrice'); // Will update this
 const detailStock = document.getElementById('detailStock');
 
-// NEW: Global variables for filtering and sorting
-let allProducts = []; // Stores the original, unfiltered product list
-let displayedProducts = []; // Stores the currently filtered/sorted products
+// Global variables for filtering and sorting
+let allProducts = [];
+let displayedProducts = [];
 
-// NEW: DOM elements for filter and sort controls
+// DOM elements for filter and sort controls
 const filterInput = document.getElementById('filterInput');
 const sortSelect = document.getElementById('sortSelect');
 const resetFiltersButton = document.getElementById('resetFiltersButton');
+
+
+// NEW: Currency Formatter for Indian Rupees
+const inrFormatter = new Intl.NumberFormat('en-IN', { // 'en-IN' for India locale
+    style: 'currency',
+    currency: 'INR', // INR for Indian Rupee
+    minimumFractionDigits: 2, // Ensure two decimal places
+    maximumFractionDigits: 2,
+});
 
 
 // --- Fetch and Display Products ---
@@ -35,19 +44,18 @@ async function fetchProducts() {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        allProducts = await response.json(); // Store all fetched products
-        applyFiltersAndSort(); // Apply filters and sort on initial load
+        allProducts = await response.json();
+        applyFiltersAndSort();
     } catch (error) {
         console.error('Error fetching products:', error);
         productListDiv.innerHTML = '<p>Error loading products. Please try again later.</p>';
     }
 }
 
-// NEW: Function to apply filters and sorting
+// Function to apply filters and sorting (no change here)
 function applyFiltersAndSort() {
-    let currentProducts = [...allProducts]; // Start with a fresh copy of all products
+    let currentProducts = [...allProducts];
 
-    // 1. Filtering by name or description
     const filterText = filterInput.value.toLowerCase().trim();
     if (filterText) {
         currentProducts = currentProducts.filter(product =>
@@ -56,7 +64,6 @@ function applyFiltersAndSort() {
         );
     }
 
-    // 2. Sorting
     const sortOption = sortSelect.value;
     switch (sortOption) {
         case 'name_asc':
@@ -77,16 +84,15 @@ function applyFiltersAndSort() {
         case 'stock_desc':
             currentProducts.sort((a, b) => b.stock - a.stock);
             break;
-        // 'none' case means no sorting (default order from API or simply no re-sort)
     }
 
-    displayedProducts = currentProducts; // Update the products that will be displayed
-    displayProducts(displayedProducts); // Re-render the list with the filtered/sorted data
+    displayedProducts = currentProducts;
+    displayProducts(displayedProducts);
 }
 
-// Modified displayProducts function to accept an array to display
+// Modified displayProducts function to use INR formatter
 function displayProducts(productsToDisplay) {
-    productListDiv.innerHTML = ''; // Clear current list
+    productListDiv.innerHTML = '';
 
     if (productsToDisplay.length === 0) {
         productListDiv.innerHTML = '<p>No products found matching your criteria.</p>';
@@ -99,7 +105,7 @@ function displayProducts(productsToDisplay) {
         productCard.innerHTML = `
             <div class="product-card-info">
                 <h3>${product.name}</h3>
-                <p>Price: $${product.price.toFixed(2)} | Stock: ${product.stock}</p>
+                <p>Price: ${inrFormatter.format(product.price)} | Stock: ${product.stock}</p>
             </div>
             <div class="product-card-actions">
                 <button class="view-btn" data-id="${product.id}">View</button>
@@ -110,7 +116,6 @@ function displayProducts(productsToDisplay) {
         productListDiv.appendChild(productCard);
     });
 
-    // Add event listeners for new buttons (MUST BE DONE AFTER RENDERING)
     document.querySelectorAll('.view-btn').forEach(button => {
         button.addEventListener('click', (e) => viewProduct(e.target.dataset.id));
     });
@@ -122,14 +127,14 @@ function displayProducts(productsToDisplay) {
     });
 }
 
-// --- Add/Update Product ---
+// --- Add/Update Product (no change here, priceInput remains a number) ---
 productForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const id = productIdInput.value;
     const name = nameInput.value.trim();
     const description = descriptionInput.value.trim();
-    const price = parseFloat(priceInput.value);
+    const price = parseFloat(priceInput.value); // Ensure this remains a number
     const stock = parseInt(stockInput.value);
 
     if (!name || isNaN(price) || isNaN(stock)) {
@@ -142,14 +147,12 @@ productForm.addEventListener('submit', async (e) => {
     try {
         let response;
         if (id) {
-            // Update existing product
             response = await fetch(`${API_URL}/products/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(productData)
             });
         } else {
-            // Create new product
             response = await fetch(`${API_URL}/products`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -166,14 +169,14 @@ productForm.addEventListener('submit', async (e) => {
         productIdInput.value = '';
         submitButton.textContent = 'Add Product';
         cancelEditButton.style.display = 'none';
-        fetchProducts(); // Refresh the list (which will also apply filters/sort)
+        fetchProducts();
     } catch (error) {
         console.error('Error submitting product:', error);
         alert(`Failed to save product: ${error.message}`);
     }
 });
 
-// --- Edit Product ---
+// --- Edit Product (no change, priceInput still handles numbers) ---
 async function editProduct(id) {
     try {
         const response = await fetch(`${API_URL}/products/${id}`);
@@ -185,19 +188,19 @@ async function editProduct(id) {
         productIdInput.value = product.id;
         nameInput.value = product.name;
         descriptionInput.value = product.description;
-        priceInput.value = product.price;
+        priceInput.value = product.price; // Keep this as a number for editing
         stockInput.value = product.stock;
 
         submitButton.textContent = 'Update Product';
         cancelEditButton.style.display = 'inline-block';
-        window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to form
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
         console.error('Error fetching product for edit:', error);
         alert('Failed to load product for editing.');
     }
 }
 
-// --- Cancel Edit ---
+// --- Cancel Edit (no change) ---
 cancelEditButton.addEventListener('click', () => {
     productForm.reset();
     productIdInput.value = '';
@@ -205,7 +208,7 @@ cancelEditButton.addEventListener('click', () => {
     cancelEditButton.style.display = 'none';
 });
 
-// --- Delete Product ---
+// --- Delete Product (no change) ---
 async function deleteProduct(id) {
     if (!confirm('Are you sure you want to delete this product?')) {
         return;
@@ -218,14 +221,14 @@ async function deleteProduct(id) {
             const errorData = await response.json();
             throw new Error(`API error: ${errorData.error || response.statusText}`);
         }
-        fetchProducts(); // Refresh the list (which will also apply filters/sort)
+        fetchProducts();
     } catch (error) {
         console.error('Error deleting product:', error);
         alert(`Failed to delete product: ${error.message}`);
     }
 }
 
-// --- View Product Details (Modal) ---
+// --- View Product Details (Modal - MODIFIED to use INR formatter) ---
 async function viewProduct(id) {
     try {
         const response = await fetch(`${API_URL}/products/${id}`);
@@ -237,35 +240,35 @@ async function viewProduct(id) {
         detailId.textContent = product.id;
         detailName.textContent = product.name;
         detailDescription.textContent = product.description || 'N/A';
-        detailPrice.textContent = product.price.toFixed(2);
+        detailPrice.textContent = inrFormatter.format(product.price); // Apply formatter here
         detailStock.textContent = product.stock;
 
-        productDetailModal.style.display = 'block'; // Show the modal
+        productDetailModal.style.display = 'block';
     } catch (error) {
         console.error('Error fetching product details:', error);
         alert('Failed to load product details.');
     }
 }
 
-// Close modal when close button is clicked
+// Close modal when close button is clicked (no change)
 closeButton.addEventListener('click', () => {
     productDetailModal.style.display = 'none';
 });
 
-// Close modal when clicking outside of it
+// Close modal when clicking outside of it (no change)
 window.addEventListener('click', (event) => {
     if (event.target === productDetailModal) {
         productDetailModal.style.display = 'none';
     }
 });
 
-// NEW: Event Listeners for filter and sort controls
-filterInput.addEventListener('input', applyFiltersAndSort); // Real-time filtering
-sortSelect.addEventListener('change', applyFiltersAndSort); // Apply sort when option changes
+// Event Listeners for filter and sort controls (no change)
+filterInput.addEventListener('input', applyFiltersAndSort);
+sortSelect.addEventListener('change', applyFiltersAndSort);
 resetFiltersButton.addEventListener('click', () => {
     filterInput.value = '';
     sortSelect.value = 'none';
-    applyFiltersAndSort(); // Reset and reapply filters/sort
+    applyFiltersAndSort();
 });
 
 // Initial fetch of products when the page loads
