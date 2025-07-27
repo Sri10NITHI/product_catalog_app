@@ -137,7 +137,7 @@ Your application should now be fully functional in your browser.
 *Description: A modal window displaying detailed information for a selected product.*
 
 ### 4. Product List with Filter Applied
-![Filtered List](two.png)
+![Filtered List](filtered_sorted_list.png)
 *Description: The product list after applying a filter (e.g., searching for "Mouse") and sorting by price.*
 
 ## License
